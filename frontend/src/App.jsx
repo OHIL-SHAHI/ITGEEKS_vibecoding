@@ -299,32 +299,32 @@ export default function App() {
   );
 
   return (
-    <div className="flex h-screen w-screen flex-col bg-[#050811] text-slate-100 font-sans antialiased overflow-hidden select-none">
+    <div className="flex h-screen w-screen flex-col bg-[#181414] text-[#FCF2E5] font-sans antialiased overflow-hidden select-none">
       {/* Top Header */}
-      <header className="flex h-14 items-center justify-between border-b border-slate-800/80 bg-[#0a0f1d] px-6">
+      <header className="flex h-14 items-center justify-between border-b border-[#524646]/70 bg-[#231d1d] px-6">
         <div className="flex items-center space-x-2.5">
-          <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 shadow-md shadow-indigo-500/30">
-            <span className="text-xs font-black tracking-widest text-white">VS</span>
-            <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-400 opacity-25 blur-[3px] -z-10" />
+          <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-[#EC5B38] via-[#e5502c] to-[#f98a6f] shadow-md shadow-[#EC5B38]/30">
+            <span className="text-xs font-black tracking-widest text-[#FCF2E5]">VS</span>
+            <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-tr from-[#EC5B38] to-[#FCF2E5] opacity-25 blur-[3px] -z-10" />
           </div>
           <div className="flex items-baseline space-x-0.5">
-            <span className="text-base font-extrabold tracking-tight text-white">
+            <span className="text-base font-extrabold tracking-tight text-[#FCF2E5]">
               Vibe
             </span>
-            <span className="text-base font-black tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="text-base font-black tracking-tight bg-gradient-to-r from-[#EC5B38] via-[#f79477] to-[#FCF2E5] bg-clip-text text-transparent">
               Study
             </span>
           </div>
         </div>
 
         {/* View Switcher Tabs */}
-        <div className="flex items-center rounded-lg bg-slate-900/90 p-1 border border-slate-800">
+        <div className="flex items-center rounded-lg bg-[#1a1414] p-1 border border-[#524646]/80">
           <button
             onClick={() => setActiveTab('chat')}
             className={`flex items-center space-x-2 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
               activeTab === 'chat'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#EC5B38] text-[#FCF2E5] shadow-sm font-semibold'
+                : 'text-[#A8A492] hover:text-[#FCF2E5] hover:bg-[#2b2323]'
             }`}
           >
             <MessageSquare className="h-3.5 w-3.5" />
@@ -337,8 +337,8 @@ export default function App() {
             }}
             className={`flex items-center space-x-2 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
               activeTab === 'corpus'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#EC5B38] text-[#FCF2E5] shadow-sm font-semibold'
+                : 'text-[#A8A492] hover:text-[#FCF2E5] hover:bg-[#2b2323]'
             }`}
           >
             <Layers className="h-3.5 w-3.5" />
@@ -348,8 +348,8 @@ export default function App() {
             onClick={() => setActiveTab('benchmark')}
             className={`flex items-center space-x-2 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
               activeTab === 'benchmark'
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#EC5B38] text-[#FCF2E5] shadow-sm font-semibold'
+                : 'text-[#A8A492] hover:text-[#FCF2E5] hover:bg-[#2b2323]'
             }`}
           >
             <BarChart2 className="h-3.5 w-3.5" />
@@ -357,19 +357,8 @@ export default function App() {
           </button>
         </div>
 
-        {/* System Status Indicators */}
-        <div className="flex items-center space-x-4 text-xs font-mono">
-          <div className="flex items-center space-x-1.5 text-slate-400">
-            <Database className="h-3.5 w-3.5 text-cyan-400" />
-            <span>QDRANT:</span>
-            <span className="text-cyan-400 font-semibold">{systemHealth.qdrant || 'CONNECTED'}</span>
-          </div>
-          <div className="flex items-center space-x-1.5 text-slate-400">
-            <Cpu className="h-3.5 w-3.5 text-emerald-400" />
-            <span>GEMINI:</span>
-            <span className="text-emerald-400 font-semibold">3.5 FLASH LITE</span>
-          </div>
-        </div>
+        {/* Right spacer to keep tabs centered */}
+        <div className="min-w-[130px] hidden sm:block" />
       </header>
 
       {/* Main Workspace Area */}
@@ -378,28 +367,28 @@ export default function App() {
         {activeTab === 'chat' && (
           <div className="flex flex-1 h-full overflow-hidden">
             {/* Chat Stream Panel */}
-            <div className={`flex flex-col h-full transition-all duration-300 ${inspectorOpen ? 'w-1/2 border-r border-slate-800' : 'w-full'}`}>
+            <div className={`flex flex-col h-full transition-all duration-300 ${inspectorOpen ? 'w-1/2 border-r border-[#524646]/70' : 'w-full'}`}>
               <div className="flex-1 overflow-y-auto p-6 space-y-6">
                 {messages.map((msg, idx) => (
                   <div
                     key={idx}
                     className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
-                    <div className="flex items-center space-x-2 mb-1 text-[11px] font-mono text-slate-500">
+                    <div className="flex items-center space-x-2 mb-1 text-[11px] font-mono text-[#A8A492]">
                       <span>{msg.role === 'user' ? 'STUDENT QUESTION' : 'GROUNDED ASSISTANT'}</span>
                     </div>
 
                     <div
                       className={`max-w-2xl rounded-xl p-4 text-sm leading-relaxed shadow-sm ${
                         msg.role === 'user'
-                          ? 'bg-indigo-600 text-white font-medium rounded-tr-none'
+                          ? 'bg-[#EC5B38] text-[#FCF2E5] font-medium rounded-tr-none shadow-md shadow-[#EC5B38]/15'
                           : msg.is_refusal
-                          ? 'bg-rose-950/40 text-rose-200 border border-rose-800/60 rounded-tl-none'
-                          : 'bg-[#0f172a] text-slate-200 border border-slate-800 rounded-tl-none'
+                          ? 'bg-[#381f1a]/90 text-[#fca995] border border-[#EC5B38]/50 rounded-tl-none'
+                          : 'bg-[#251e1e] text-[#FCF2E5] border border-[#524646] rounded-tl-none'
                       }`}
                     >
                       {msg.is_refusal && (
-                        <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-rose-800/40 text-rose-400 text-xs font-semibold tracking-wide">
+                        <div className="flex items-center space-x-2 mb-2 pb-2 border-b border-[#EC5B38]/30 text-[#EC5B38] text-xs font-semibold tracking-wide">
                           <AlertTriangle className="h-3.5 w-3.5" />
                           <span>OUT-OF-CORPUS REFUSAL</span>
                         </div>
@@ -409,8 +398,8 @@ export default function App() {
 
                       {/* Source Citation Chips */}
                       {msg.sources && msg.sources.length > 0 && (
-                        <div className="mt-4 pt-3 border-t border-slate-800/80">
-                          <div className="text-[11px] font-semibold text-slate-400 mb-2 tracking-wider uppercase font-mono">
+                        <div className="mt-4 pt-3 border-t border-[#524646]/70">
+                          <div className="text-[11px] font-semibold text-[#A8A492] mb-2 tracking-wider uppercase font-mono">
                             VERIFIED CITATIONS ({msg.sources.length})
                           </div>
                           <div className="flex flex-wrap gap-2">
@@ -418,18 +407,18 @@ export default function App() {
                               <button
                                 key={sIdx}
                                 onClick={() => openSourceInspector(src)}
-                                className="flex items-center space-x-1.5 rounded-md bg-slate-800/90 hover:bg-indigo-950/60 border border-slate-700/80 hover:border-indigo-500/60 px-2.5 py-1 text-xs text-indigo-300 transition-colors group"
+                                className="flex items-center space-x-1.5 rounded-md bg-[#342c2c] hover:bg-[#443838] border border-[#524646] hover:border-[#EC5B38]/80 px-2.5 py-1 text-xs text-[#FCF2E5] transition-colors group"
                               >
                                 {src.ocr ? (
-                                  <ImageIcon className="h-3 w-3 text-amber-400" />
+                                  <ImageIcon className="h-3 w-3 text-[#e8a34d]" />
                                 ) : (
-                                  <FileText className="h-3 w-3 text-indigo-400" />
+                                  <FileText className="h-3 w-3 text-[#EC5B38]" />
                                 )}
                                 <span className="font-mono font-medium">
                                   {src.filename} : Page {src.page}
                                 </span>
                                 {src.ocr && (
-                                  <span className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">
+                                  <span className="text-[9px] px-1 py-0.2 rounded bg-[#524646] text-[#FCF2E5] font-mono border border-[#A8A492]/40">
                                     OCR
                                   </span>
                                 )}
@@ -445,8 +434,8 @@ export default function App() {
 
                 {loading && (
                   <div className="flex items-start">
-                    <div className="rounded-xl rounded-tl-none bg-[#0f172a] border border-slate-800 p-4 text-xs font-mono text-slate-400 flex items-center space-x-3">
-                      <RefreshCw className="h-3.5 w-3.5 animate-spin text-indigo-400" />
+                    <div className="rounded-xl rounded-tl-none bg-[#251e1e] border border-[#524646] p-4 text-xs font-mono text-[#A8A492] flex items-center space-x-3">
+                      <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#EC5B38]" />
                       <span>Retrieving vectors & synthesizing grounded evidence...</span>
                     </div>
                   </div>
@@ -455,25 +444,25 @@ export default function App() {
               </div>
 
               {/* Chat Input Bar */}
-              <div className="border-t border-slate-800 bg-[#090e1b] p-4">
+              <div className="border-t border-[#524646]/70 bg-[#211a1a] p-4">
                 <form onSubmit={handleSendQuery} className="flex items-center space-x-3">
                   <input
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Ask an exam question (e.g., 'What is the time complexity of binary search?')"
-                    className="flex-1 rounded-lg border border-slate-700/80 bg-slate-900/90 px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="flex-1 rounded-lg border border-[#524646] bg-[#161212] px-4 py-2.5 text-sm text-[#FCF2E5] placeholder-[#A8A492]/60 focus:border-[#EC5B38] focus:outline-none focus:ring-1 focus:ring-[#EC5B38]"
                   />
                   <button
                     type="submit"
                     disabled={loading || !query.trim()}
-                    className="flex items-center space-x-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 px-5 py-2.5 text-xs font-semibold text-white transition-colors"
+                    className="flex items-center space-x-1.5 rounded-lg bg-[#EC5B38] hover:bg-[#ff714f] disabled:bg-[#342c2c] disabled:text-[#A8A492]/50 px-5 py-2.5 text-xs font-semibold text-[#FCF2E5] transition-colors"
                   >
                     <span>Send Query</span>
                     <ChevronRight className="h-3.5 w-3.5" />
                   </button>
                 </form>
-                <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+                <div className="mt-2 flex items-center justify-between text-[11px] text-[#A8A492] font-mono">
                   <span>Grounding: Strict Course Scope</span>
                   <span>Parametric Hallucination: Disabled</span>
                 </div>
@@ -482,20 +471,20 @@ export default function App() {
 
             {/* Side-by-Side Page Inspector Panel */}
             {inspectorOpen && inspectingSource && (
-              <div className="w-1/2 h-full flex flex-col bg-[#070b14] overflow-hidden">
+              <div className="w-1/2 h-full flex flex-col bg-[#1a1414] overflow-hidden">
                 {/* Inspector Header */}
-                <div className="flex items-center justify-between border-b border-slate-800 bg-[#0c1222] px-4 py-3">
+                <div className="flex items-center justify-between border-b border-[#524646]/70 bg-[#241d1d] px-4 py-3">
                   <div className="flex items-center space-x-2">
-                    <FileCheck className="h-4 w-4 text-indigo-400" />
+                    <FileCheck className="h-4 w-4 text-[#EC5B38]" />
                     <div>
-                      <span className="text-xs font-semibold text-slate-200">
+                      <span className="text-xs font-semibold text-[#FCF2E5]">
                         {inspectingSource.filename}
                       </span>
-                      <span className="ml-2 text-xs font-mono text-indigo-400">
+                      <span className="ml-2 text-xs font-mono text-[#EC5B38]">
                         Page {inspectingSource.page}
                       </span>
                       {inspectingSource.ocr && (
-                        <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono border border-amber-500/40">
+                        <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-[#524646] text-[#FCF2E5] font-mono border border-[#A8A492]/40">
                           HANDWRITTEN OCR
                         </span>
                       )}
@@ -506,31 +495,31 @@ export default function App() {
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => setZoomLevel((z) => Math.max(0.6, z - 0.2))}
-                      className="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                      className="p-1.5 rounded bg-[#342c2c] hover:bg-[#443838] text-[#FCF2E5] border border-[#524646]/60"
                       title="Zoom Out"
                     >
                       <ZoomOut className="h-3.5 w-3.5" />
                     </button>
-                    <span className="text-xs font-mono text-slate-400 px-1">
+                    <span className="text-xs font-mono text-[#A8A492] px-1">
                       {Math.round(zoomLevel * 100)}%
                     </span>
                     <button
                       onClick={() => setZoomLevel((z) => Math.min(2.5, z + 0.2))}
-                      className="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                      className="p-1.5 rounded bg-[#342c2c] hover:bg-[#443838] text-[#FCF2E5] border border-[#524646]/60"
                       title="Zoom In"
                     >
                       <ZoomIn className="h-3.5 w-3.5" />
                     </button>
                     <button
                       onClick={() => setZoomLevel(1.0)}
-                      className="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                      className="p-1.5 rounded bg-[#342c2c] hover:bg-[#443838] text-[#FCF2E5] border border-[#524646]/60"
                       title="Reset Zoom"
                     >
                       <RotateCcw className="h-3.5 w-3.5" />
                     </button>
                     <button
                       onClick={() => setInspectorOpen(false)}
-                      className="p-1.5 rounded bg-slate-800 hover:bg-rose-900/60 text-slate-400 hover:text-rose-200"
+                      className="p-1.5 rounded bg-[#342c2c] hover:bg-[#52231e] text-[#A8A492] hover:text-[#FCF2E5] border border-[#524646]/60"
                     >
                       <X className="h-3.5 w-3.5" />
                     </button>
@@ -538,15 +527,15 @@ export default function App() {
                 </div>
 
                 {/* Excerpt Snippet Highlight */}
-                <div className="border-b border-slate-800/80 bg-slate-900/60 p-3 text-xs text-slate-300 font-mono">
-                  <div className="text-[10px] text-slate-500 mb-1 font-semibold uppercase">Retrieved Context Excerpt:</div>
-                  <div className="bg-[#050811] p-2.5 rounded border border-slate-800/60 whitespace-pre-wrap leading-relaxed">
+                <div className="border-b border-[#524646]/70 bg-[#211a1a] p-3 text-xs text-[#A8A492] font-mono">
+                  <div className="text-[10px] text-[#A8A492] mb-1 font-semibold uppercase">Retrieved Context Excerpt:</div>
+                  <div className="bg-[#161111] p-2.5 rounded border border-[#524646]/60 whitespace-pre-wrap leading-relaxed text-[#FCF2E5]">
                     {inspectingSource.snippet}
                   </div>
                 </div>
 
                 {/* Rendered Document Page Scans */}
-                <div className="flex-1 overflow-auto p-4 flex items-start justify-center bg-[#03060d]">
+                <div className="flex-1 overflow-auto p-4 flex items-start justify-center bg-[#130f0f]">
                   {inspectingSource.image_url ? (
                     <div
                       style={{
@@ -559,11 +548,11 @@ export default function App() {
                       <img
                         src={inspectingSource.image_url}
                         alt={`Document page scan: ${inspectingSource.filename} page ${inspectingSource.page}`}
-                        className="max-w-full max-h-[72vh] w-auto h-auto rounded-lg shadow-2xl border border-slate-800 bg-white object-contain"
+                        className="max-w-full max-h-[72vh] w-auto h-auto rounded-lg shadow-2xl border border-[#524646] bg-white object-contain"
                       />
                     </div>
                   ) : (
-                    <div className="text-center p-8 text-slate-500 text-xs font-mono">
+                    <div className="text-center p-8 text-[#A8A492] text-xs font-mono">
                       [Document page image preview unavailable for pure text/markdown source]
                     </div>
                   )}
@@ -575,18 +564,18 @@ export default function App() {
 
         {/* ===================== VIEW 2: COURSE CORPUS MANAGER ===================== */}
         {activeTab === 'corpus' && (
-          <div className="flex-1 flex flex-col p-8 overflow-y-auto bg-[#070b14]">
+          <div className="flex-1 flex flex-col p-8 overflow-y-auto bg-[#181414]">
             {/* Header & Stats Cards */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-xl font-bold text-slate-100">Course Materials Corpus</h1>
-                <p className="text-xs text-slate-400 mt-1">
+                <h1 className="text-xl font-bold text-[#FCF2E5]">Course Materials Corpus</h1>
+                <p className="text-xs text-[#A8A492] mt-1">
                   Ingested slides, handbooks, markdown study notes, and handwritten exam sheets.
                 </p>
               </div>
               <button
                 onClick={() => setUploadModalOpen(true)}
-                className="flex items-center space-x-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-semibold text-white transition-colors"
+                className="flex items-center space-x-2 rounded-lg bg-[#EC5B38] hover:bg-[#ff714f] px-4 py-2 text-xs font-semibold text-[#FCF2E5] transition-colors shadow-sm shadow-[#EC5B38]/20"
               >
                 <Upload className="h-3.5 w-3.5" />
                 <span>Upload Document</span>
@@ -595,48 +584,48 @@ export default function App() {
 
             {/* KPI Cards */}
             <div className="grid grid-cols-4 gap-4 mb-8">
-              <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                <div className="text-xs font-mono text-slate-400">TOTAL DOCUMENTS</div>
-                <div className="text-2xl font-bold text-slate-100 mt-1">{corpusStats.total_documents}</div>
+              <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                <div className="text-xs font-mono text-[#A8A492]">TOTAL DOCUMENTS</div>
+                <div className="text-2xl font-bold text-[#FCF2E5] mt-1">{corpusStats.total_documents}</div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                <div className="text-xs font-mono text-slate-400">TOTAL INGESTED PAGES</div>
-                <div className="text-2xl font-bold text-indigo-400 mt-1">{corpusStats.total_pages}</div>
+              <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                <div className="text-xs font-mono text-[#A8A492]">TOTAL INGESTED PAGES</div>
+                <div className="text-2xl font-bold text-[#EC5B38] mt-1">{corpusStats.total_pages}</div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                <div className="text-xs font-mono text-slate-400">INDEXED DENSE CHUNKS</div>
-                <div className="text-2xl font-bold text-cyan-400 mt-1">{corpusStats.total_chunks}</div>
+              <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                <div className="text-xs font-mono text-[#A8A492]">INDEXED DENSE CHUNKS</div>
+                <div className="text-2xl font-bold text-[#FCF2E5] mt-1">{corpusStats.total_chunks}</div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                <div className="text-xs font-mono text-slate-400">VECTOR EMBEDDING DIM</div>
-                <div className="text-2xl font-bold text-emerald-400 mt-1">3072 (Gemini-v2)</div>
+              <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                <div className="text-xs font-mono text-[#A8A492]">VECTOR EMBEDDING DIM</div>
+                <div className="text-2xl font-bold text-[#A8A492] mt-1">3072 (Gemini-v2)</div>
               </div>
             </div>
 
             {/* Search Bar */}
             <div className="flex items-center space-x-3 mb-6">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#A8A492]" />
                 <input
                   type="text"
                   value={corpusSearch}
                   onChange={(e) => setCorpusSearch(e.target.value)}
                   placeholder="Filter documents by filename..."
-                  className="w-full rounded-lg border border-slate-800 bg-slate-900/90 pl-9 pr-4 py-2 text-xs text-slate-100 placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
+                  className="w-full rounded-lg border border-[#524646] bg-[#221b1b] pl-9 pr-4 py-2 text-xs text-[#FCF2E5] placeholder-[#A8A492]/60 focus:border-[#EC5B38] focus:outline-none"
                 />
               </div>
               <button
                 onClick={fetchCorpus}
-                className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200"
+                className="p-2 rounded-lg bg-[#251e1e] border border-[#524646] text-[#A8A492] hover:text-[#FCF2E5]"
               >
                 <RefreshCw className="h-4 w-4" />
               </button>
             </div>
 
             {/* Documents Table */}
-            <div className="rounded-xl border border-slate-800 bg-[#0b101d] overflow-hidden">
+            <div className="rounded-xl border border-[#524646]/80 bg-[#221b1b] overflow-hidden shadow-sm">
               <table className="w-full text-left text-xs">
-                <thead className="border-b border-slate-800 bg-slate-900/70 font-mono text-slate-400">
+                <thead className="border-b border-[#524646] bg-[#2a2222] font-mono text-[#A8A492]">
                   <tr>
                     <th className="py-3.5 px-4">DOCUMENT FILENAME</th>
                     <th className="py-3.5 px-4">FORMAT</th>
@@ -648,55 +637,55 @@ export default function App() {
                     <th className="py-3.5 px-4 text-right">ACTION</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[#524646]/60 font-mono">
                   {filteredDocs.map((doc) => (
-                    <tr key={doc.doc_id} className="hover:bg-slate-900/40 transition-colors">
-                      <td className="py-3.5 px-4 font-semibold text-slate-200 flex items-center space-x-2">
+                    <tr key={doc.doc_id} className="hover:bg-[#2e2626] transition-colors">
+                      <td className="py-3.5 px-4 font-semibold text-[#FCF2E5] flex items-center space-x-2">
                         {doc.format === 'handwritten_scan' ? (
-                          <ImageIcon className="h-4 w-4 text-amber-400" />
+                          <ImageIcon className="h-4 w-4 text-[#e8a34d]" />
                         ) : (
-                          <FileText className="h-4 w-4 text-indigo-400" />
+                          <FileText className="h-4 w-4 text-[#EC5B38]" />
                         )}
                         <span>{doc.filename}</span>
                       </td>
                       <td className="py-3.5 px-4">
-                        <span className="rounded bg-slate-800 px-2 py-0.5 text-[10px] text-slate-300 uppercase border border-slate-700/60">
+                        <span className="rounded bg-[#342c2c] px-2 py-0.5 text-[10px] text-[#A8A492] uppercase border border-[#524646]">
                           {doc.format}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-slate-300">{doc.page_count}</td>
-                      <td className="py-3.5 px-4 text-slate-300">{doc.chunk_count}</td>
+                      <td className="py-3.5 px-4 text-[#FCF2E5]">{doc.page_count}</td>
+                      <td className="py-3.5 px-4 text-[#FCF2E5]">{doc.chunk_count}</td>
                       <td className="py-3.5 px-4">
                         {doc.ocr_pages > 0 ? (
-                          <span className="rounded bg-amber-500/20 text-amber-300 px-2 py-0.5 text-[10px] border border-amber-500/30">
+                          <span className="rounded bg-[#3d2b27] text-[#ffb49e] px-2 py-0.5 text-[10px] border border-[#EC5B38]/40">
                             {doc.ocr_pages} pages VLM OCR
                           </span>
                         ) : (
-                          <span className="text-slate-500 text-[11px]">Direct Text</span>
+                          <span className="text-[#A8A492] text-[11px]">Direct Text</span>
                         )}
                       </td>
                       <td className="py-3.5 px-4">
                         {doc.status === 'processing' ? (
-                          <span className="flex items-center space-x-1.5 rounded bg-blue-500/20 text-blue-300 px-2 py-0.5 text-[10px] border border-blue-500/30 animate-pulse font-mono">
+                          <span className="flex items-center space-x-1.5 rounded bg-[#4a2e26] text-[#ffa38b] px-2 py-0.5 text-[10px] border border-[#EC5B38]/40 animate-pulse font-mono">
                             <Loader2 className="h-3 w-3 animate-spin" />
                             <span>{doc.progress || 0}%</span>
                           </span>
                         ) : doc.status === 'failed' ? (
-                          <span className="rounded bg-rose-500/20 text-rose-300 px-2 py-0.5 text-[10px] border border-rose-500/30 font-mono">
+                          <span className="rounded bg-[#452220] text-[#fca995] px-2 py-0.5 text-[10px] border border-[#EC5B38]/40 font-mono">
                             FAILED
                           </span>
                         ) : (
-                          <span className="flex items-center space-x-1 rounded bg-emerald-500/20 text-emerald-300 px-2 py-0.5 text-[10px] border border-emerald-500/30 font-mono">
+                          <span className="flex items-center space-x-1 rounded bg-[#242b22] text-[#b5deb0] px-2 py-0.5 text-[10px] border border-[#7a9a70]/40 font-mono">
                             <CheckCircle2 className="h-3 w-3" />
                             <span>READY</span>
                           </span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-slate-400 text-[11px]">{doc.created_at}</td>
+                      <td className="py-3.5 px-4 text-[#A8A492] text-[11px]">{doc.created_at}</td>
                       <td className="py-3.5 px-4 text-right">
                         <button
                           onClick={() => handleDeleteDocument(doc.doc_id, doc.filename)}
-                          className="p-1.5 rounded bg-slate-800/80 hover:bg-rose-950/80 text-slate-400 hover:text-rose-300 border border-slate-700/60 hover:border-rose-700/60 transition-colors"
+                          className="p-1.5 rounded bg-[#342c2c] hover:bg-[#52231e] text-[#A8A492] hover:text-[#FCF2E5] border border-[#524646] transition-colors"
                           title="Remove document from corpus"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -713,19 +702,19 @@ export default function App() {
 
         {/* ===================== VIEW 3: BENCHMARK & EVALUATION ===================== */}
         {activeTab === 'benchmark' && (
-          <div className="flex-1 flex flex-col p-8 overflow-y-auto bg-[#070b14]">
+          <div className="flex-1 flex flex-col p-8 overflow-y-auto bg-[#181414]">
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-xl font-bold text-slate-100">Evaluation Baseline Benchmark</h1>
-                <p className="text-xs text-slate-400 mt-1">
+                <h1 className="text-xl font-bold text-[#FCF2E5]">Evaluation Baseline Benchmark</h1>
+                <p className="text-xs text-[#A8A492] mt-1">
                   Automated test suite against 20 target questions and 10 syllabus refusal queries. Target refusal rate: 100%.
                 </p>
               </div>
               <button
                 onClick={handleRunBenchmark}
                 disabled={benchmarkLoading}
-                className="flex items-center space-x-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 px-5 py-2.5 text-xs font-semibold text-white transition-colors"
+                className="flex items-center space-x-2 rounded-lg bg-[#EC5B38] hover:bg-[#ff714f] disabled:bg-[#342c2c] disabled:text-[#A8A492]/50 px-5 py-2.5 text-xs font-semibold text-[#FCF2E5] transition-colors shadow-sm shadow-[#EC5B38]/20"
               >
                 {benchmarkLoading ? (
                   <RefreshCw className="h-3.5 w-3.5 animate-spin" />
@@ -739,33 +728,33 @@ export default function App() {
             {/* KPI Cards */}
             {benchmarkData && (
               <div className="grid grid-cols-4 gap-4 mb-8">
-                <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                  <div className="text-xs font-mono text-slate-400">REFUSAL ACCURACY (10 TESTS)</div>
-                  <div className={`text-2xl font-bold mt-1 ${benchmarkData.refusal_accuracy === 100 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                  <div className="text-xs font-mono text-[#A8A492]">REFUSAL ACCURACY (10 TESTS)</div>
+                  <div className={`text-2xl font-bold mt-1 ${benchmarkData.refusal_accuracy === 100 ? 'text-[#b5deb0]' : 'text-[#EC5B38]'}`}>
                     {benchmarkData.refusal_accuracy}%
                   </div>
-                  <div className="text-[10px] text-slate-500 mt-1">Target Constraint: 100.0%</div>
+                  <div className="text-[10px] text-[#A8A492] mt-1">Target Constraint: 100.0%</div>
                 </div>
-                <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                  <div className="text-xs font-mono text-slate-400">CITATION ACCURACY (20 TESTS)</div>
-                  <div className="text-2xl font-bold text-indigo-400 mt-1">
+                <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                  <div className="text-xs font-mono text-[#A8A492]">CITATION ACCURACY (20 TESTS)</div>
+                  <div className="text-2xl font-bold text-[#EC5B38] mt-1">
                     {benchmarkData.citation_accuracy}%
                   </div>
-                  <div className="text-[10px] text-slate-500 mt-1">Expected vs Retrieved Pages</div>
+                  <div className="text-[10px] text-[#A8A492] mt-1">Expected vs Retrieved Pages</div>
                 </div>
-                <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                  <div className="text-xs font-mono text-slate-400">OVERALL BENCHMARK PASS RATE</div>
-                  <div className="text-2xl font-bold text-cyan-400 mt-1">
+                <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                  <div className="text-xs font-mono text-[#A8A492]">OVERALL BENCHMARK PASS RATE</div>
+                  <div className="text-2xl font-bold text-[#FCF2E5] mt-1">
                     {benchmarkData.overall_pass_rate}%
                   </div>
-                  <div className="text-[10px] text-slate-500 mt-1">Groundedness & Keywords</div>
+                  <div className="text-[10px] text-[#A8A492] mt-1">Groundedness & Keywords</div>
                 </div>
-                <div className="rounded-xl border border-slate-800 bg-[#0d1322] p-4">
-                  <div className="text-xs font-mono text-slate-400">EVALUATION RUN ID</div>
-                  <div className="text-sm font-mono text-slate-200 mt-2 truncate">
+                <div className="rounded-xl border border-[#524646]/80 bg-[#251e1e] p-4 shadow-sm">
+                  <div className="text-xs font-mono text-[#A8A492]">EVALUATION RUN ID</div>
+                  <div className="text-sm font-mono text-[#FCF2E5] mt-2 truncate">
                     {benchmarkData.run_id}
                   </div>
-                  <div className="text-[10px] font-mono text-slate-500 mt-1">{benchmarkData.timestamp}</div>
+                  <div className="text-[10px] font-mono text-[#A8A492] mt-1">{benchmarkData.timestamp}</div>
                 </div>
               </div>
             )}
@@ -776,7 +765,7 @@ export default function App() {
                 <button
                   onClick={() => setBenchmarkFilter('all')}
                   className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
-                    benchmarkFilter === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                    benchmarkFilter === 'all' ? 'bg-[#EC5B38] text-[#FCF2E5]' : 'bg-[#2a2222] text-[#A8A492] hover:text-[#FCF2E5] border border-[#524646]/60'
                   }`}
                 >
                   ALL ({benchmarkData.total_questions})
@@ -784,7 +773,7 @@ export default function App() {
                 <button
                   onClick={() => setBenchmarkFilter('target')}
                   className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
-                    benchmarkFilter === 'target' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                    benchmarkFilter === 'target' ? 'bg-[#EC5B38] text-[#FCF2E5]' : 'bg-[#2a2222] text-[#A8A492] hover:text-[#FCF2E5] border border-[#524646]/60'
                   }`}
                 >
                   TARGET QUESTIONS ({benchmarkData.target_questions})
@@ -792,7 +781,7 @@ export default function App() {
                 <button
                   onClick={() => setBenchmarkFilter('refusal')}
                   className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
-                    benchmarkFilter === 'refusal' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                    benchmarkFilter === 'refusal' ? 'bg-[#EC5B38] text-[#FCF2E5]' : 'bg-[#2a2222] text-[#A8A492] hover:text-[#FCF2E5] border border-[#524646]/60'
                   }`}
                 >
                   REFUSAL SET ({benchmarkData.refusal_questions})
@@ -800,7 +789,7 @@ export default function App() {
                 <button
                   onClick={() => setBenchmarkFilter('failed')}
                   className={`px-3 py-1.5 rounded text-xs font-mono font-medium transition-colors ${
-                    benchmarkFilter === 'failed' ? 'bg-rose-600 text-white' : 'bg-slate-800 text-slate-400'
+                    benchmarkFilter === 'failed' ? 'bg-[#c93f20] text-[#FCF2E5]' : 'bg-[#2a2222] text-[#A8A492] hover:text-[#FCF2E5] border border-[#524646]/60'
                   }`}
                 >
                   FAILED TESTS
@@ -810,9 +799,9 @@ export default function App() {
 
             {/* Benchmark Questions Table */}
             {benchmarkData ? (
-              <div className="rounded-xl border border-slate-800 bg-[#0b101d] overflow-hidden">
+              <div className="rounded-xl border border-[#524646]/80 bg-[#221b1b] overflow-hidden shadow-sm">
                 <table className="w-full text-left text-xs">
-                  <thead className="border-b border-slate-800 bg-slate-900/70 font-mono text-slate-400">
+                  <thead className="border-b border-[#524646] bg-[#2a2222] font-mono text-[#A8A492]">
                     <tr>
                       <th className="py-3 px-4">ID</th>
                       <th className="py-3 px-4">TYPE</th>
@@ -822,26 +811,26 @@ export default function App() {
                       <th className="py-3 px-4">CITATION</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 font-mono">
+                  <tbody className="divide-y divide-[#524646]/60 font-mono">
                     {filteredBenchmarkQuestions?.map((q) => (
-                      <tr key={q.id} className="hover:bg-slate-900/40">
-                        <td className="py-3 px-4 font-bold text-slate-200">{q.id}</td>
+                      <tr key={q.id} className="hover:bg-[#2e2626] transition-colors">
+                        <td className="py-3 px-4 font-bold text-[#FCF2E5]">{q.id}</td>
                         <td className="py-3 px-4">
-                          <span className="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] text-slate-400 uppercase">
+                          <span className="rounded bg-[#342c2c] px-1.5 py-0.5 text-[10px] text-[#A8A492] uppercase border border-[#524646]">
                             {q.type}
                           </span>
                         </td>
-                        <td className="py-3 px-4 font-sans text-slate-200 max-w-md truncate" title={q.question}>
+                        <td className="py-3 px-4 font-sans text-[#FCF2E5] max-w-md truncate" title={q.question}>
                           {q.question}
                         </td>
                         <td className="py-3 px-4">
                           {q.passed ? (
-                            <span className="flex items-center space-x-1 text-emerald-400">
+                            <span className="flex items-center space-x-1 text-[#b5deb0]">
                               <CheckCircle2 className="h-3.5 w-3.5" />
                               <span>PASS</span>
                             </span>
                           ) : (
-                            <span className="flex items-center space-x-1 text-rose-400">
+                            <span className="flex items-center space-x-1 text-[#ff8e75]">
                               <XCircle className="h-3.5 w-3.5" />
                               <span>FAIL</span>
                             </span>
@@ -849,16 +838,16 @@ export default function App() {
                         </td>
                         <td className="py-3 px-4">
                           {q.is_refusal ? (
-                            <span className="text-amber-400 font-semibold">REFUSED</span>
+                            <span className="text-[#EC5B38] font-semibold">REFUSED</span>
                           ) : (
-                            <span className="text-slate-400">ANSWERED</span>
+                            <span className="text-[#A8A492]">ANSWERED</span>
                           )}
                         </td>
                         <td className="py-3 px-4">
                           {q.citation_correct ? (
-                            <span className="text-emerald-400">MATCH</span>
+                            <span className="text-[#b5deb0]">MATCH</span>
                           ) : (
-                            <span className="text-rose-400">MISMATCH</span>
+                            <span className="text-[#ff8e75]">MISMATCH</span>
                           )}
                         </td>
                       </tr>
@@ -867,7 +856,7 @@ export default function App() {
                 </table>
               </div>
             ) : (
-              <div className="rounded-xl border border-slate-800 bg-[#0c1222] p-12 text-center text-slate-500 font-mono text-xs">
+              <div className="rounded-xl border border-[#524646]/80 bg-[#221b1b] p-12 text-center text-[#A8A492] font-mono text-xs shadow-sm">
                 Click "Run Benchmark" above to evaluate system groundedness, page citation accuracy, and 100% out-of-corpus refusal rate.
               </div>
             )}
@@ -877,53 +866,53 @@ export default function App() {
 
       {/* Upload Document Modal */}
       {uploadModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-xs p-4">
-          <div className="w-full max-w-md rounded-xl border border-slate-800 bg-[#0d1322] p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xs p-4">
+          <div className="w-full max-w-md rounded-xl border border-[#524646] bg-[#231d1d] p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-bold text-slate-100">Upload Course Material</h2>
+              <h2 className="text-sm font-bold text-[#FCF2E5]">Upload Course Material</h2>
               <button
                 onClick={() => {
                   setUploadModalOpen(false);
                   setUploadMsg(null);
                 }}
-                className="text-slate-400 hover:text-slate-200"
+                className="text-[#A8A492] hover:text-[#FCF2E5]"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <form onSubmit={handleFileUpload} className="space-y-4">
-              <div className="rounded-lg border border-dashed border-slate-700 bg-slate-900/50 p-6 text-center">
-                <Upload className="mx-auto h-8 w-8 text-indigo-400 mb-2" />
-                <p className="text-xs text-slate-300 font-medium">Select PDF, Slide Deck, Scan, or Markdown</p>
-                <p className="text-[10px] text-slate-500 mt-1">Supported: .pdf, .png, .jpg, .md, .txt</p>
+              <div className="rounded-lg border border-dashed border-[#524646] bg-[#1a1414] p-6 text-center">
+                <Upload className="mx-auto h-8 w-8 text-[#EC5B38] mb-2" />
+                <p className="text-xs text-[#FCF2E5] font-medium">Select PDF, Slide Deck, Scan, or Markdown</p>
+                <p className="text-[10px] text-[#A8A492] mt-1">Supported: .pdf, .png, .jpg, .md, .txt</p>
                 <input
                   type="file"
                   disabled={uploading}
                   onChange={(e) => setUploadFile(e.target.files[0])}
-                  className="mt-4 block w-full text-xs text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 disabled:opacity-50"
+                  className="mt-4 block w-full text-xs text-[#A8A492] file:mr-4 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-[#EC5B38] file:text-[#FCF2E5] hover:file:bg-[#ff714f] disabled:opacity-50"
                 />
               </div>
 
               {/* Real-time Ingestion Progress Bar */}
               {uploadTask && (
-                <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3.5 space-y-2.5">
+                <div className="rounded-lg border border-[#524646] bg-[#161212] p-3.5 space-y-2.5">
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-indigo-300 font-semibold truncate max-w-[240px]">
+                    <span className="text-[#FCF2E5] font-semibold truncate max-w-[240px]">
                       {uploadTask.filename}
                     </span>
-                    <span className="text-slate-300 font-bold">{uploadTask.progress}%</span>
+                    <span className="text-[#EC5B38] font-bold">{uploadTask.progress}%</span>
                   </div>
 
-                  <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-[#2a2222] rounded-full h-2 overflow-hidden">
                     <div
-                      className="bg-indigo-500 h-2 rounded-full transition-all duration-300 ease-out"
+                      className="bg-[#EC5B38] h-2 rounded-full transition-all duration-300 ease-out"
                       style={{ width: `${Math.max(5, uploadTask.progress)}%` }}
                     />
                   </div>
 
-                  <div className="flex items-center space-x-2 text-[11px] text-slate-400 font-mono">
-                    <Loader2 className="h-3 w-3 text-indigo-400 animate-spin shrink-0" />
+                  <div className="flex items-center space-x-2 text-[11px] text-[#A8A492] font-mono">
+                    <Loader2 className="h-3 w-3 text-[#EC5B38] animate-spin shrink-0" />
                     <span className="truncate">{uploadTask.status_message || 'Processing document...'}</span>
                   </div>
                 </div>
@@ -933,14 +922,14 @@ export default function App() {
                 <div
                   className={`p-3 rounded text-xs font-mono flex items-center space-x-2 ${
                     uploadMsg.type === 'success'
-                      ? 'bg-emerald-950/60 border border-emerald-800 text-emerald-300'
-                      : 'bg-rose-950/60 border border-rose-800 text-rose-300'
+                      ? 'bg-[#242b22] border border-[#7a9a70]/50 text-[#b5deb0]'
+                      : 'bg-[#3d1f1a] border border-[#EC5B38]/50 text-[#fca995]'
                   }`}
                 >
                   {uploadMsg.type === 'success' ? (
-                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-[#b5deb0]" />
                   ) : (
-                    <XCircle className="h-4 w-4 shrink-0 text-rose-400" />
+                    <XCircle className="h-4 w-4 shrink-0 text-[#ff8e75]" />
                   )}
                   <span>{uploadMsg.text}</span>
                 </div>
@@ -955,14 +944,14 @@ export default function App() {
                     setUploadMsg(null);
                     setUploadTask(null);
                   }}
-                  className="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 text-xs font-medium hover:bg-slate-700 disabled:opacity-50"
+                  className="px-4 py-2 rounded-lg bg-[#342c2c] text-[#A8A492] text-xs font-medium hover:bg-[#443838] hover:text-[#FCF2E5] disabled:opacity-50 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={!uploadFile || uploading}
-                  className="flex items-center space-x-1.5 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-xs font-semibold transition-colors"
+                  className="flex items-center space-x-1.5 px-4 py-2 rounded-lg bg-[#EC5B38] hover:bg-[#ff714f] disabled:bg-[#342c2c] disabled:text-[#A8A492]/50 text-[#FCF2E5] text-xs font-semibold transition-colors shadow-sm shadow-[#EC5B38]/20"
                 >
                   {uploading ? (
                     <>
