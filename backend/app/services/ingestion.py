@@ -290,19 +290,20 @@ class IngestionEngine:
             logger.info(f"Split {file_path.name} ({page_count} pages) into {len(contextualized_chunks)} contextualized chunks")
 
             # Asynchronously index into Qdrant in throttled batches
-            async def on_batch_progress(indexed_so_far: int, total_chunks: int):
+            async def on_batch_progress(indexed_so_far: int, total_chunks: int, custom_msg: str = None):
                 pct = 60 + int((indexed_so_far / max(1, total_chunks)) * 35)
+                msg = custom_msg or f"Embedding chunks into vector store ({indexed_so_far}/{total_chunks})..."
                 await mongo_store.update_document_status(
                     doc_id=doc_id,
                     status="processing",
                     progress=pct,
-                    status_message=f"Embedding chunks into vector store ({indexed_so_far}/{total_chunks})..."
+                    status_message=msg
                 )
 
             await vector_service.add_documents_throttled_async(
                 contextualized_chunks,
-                batch_size=35,
-                delay_seconds=2.5,
+                batch_size=25,
+                delay_seconds=2.0,
                 progress_callback=on_batch_progress
             )
 

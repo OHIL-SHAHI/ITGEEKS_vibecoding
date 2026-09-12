@@ -83,8 +83,8 @@ class VectorService:
     async def add_documents_throttled_async(
         self,
         docs: List[Document],
-        batch_size: int = 35,
-        delay_seconds: float = 2.5,
+        batch_size: int = 25,
+        delay_seconds: float = 2.0,
         progress_callback=None
     ) -> int:
         if not docs:
@@ -105,7 +105,6 @@ class VectorService:
                 except Exception as e:
                     err_msg = str(e).lower()
                     if "429" in err_msg or "resource_exhausted" in err_msg or "quota" in err_msg:
-                        # Extract exact retry delay from Google API error if provided
                         match = re.search(r'retry(?:ing)?\s*(?:in|delay)?\s*[:\s]*(\d+(?:\.\d+)?)s?', err_msg)
                         if match:
                             backoff = float(match.group(1)) + 2.0
@@ -115,6 +114,15 @@ class VectorService:
                             f"Rate limit hit during chunk indexing (batch {i}-{i+len(batch)}, attempt {attempt+1}/8). "
                             f"Backing off for {backoff:.1f}s..."
                         )
+                        if progress_callback:
+                            try:
+                                backoff_msg = f"Rate limit reached. Auto-resuming in {int(backoff)}s..."
+                                if asyncio.iscoroutinefunction(progress_callback):
+                                    await progress_callback(i, total_docs, backoff_msg)
+                                else:
+                                    progress_callback(i, total_docs, backoff_msg)
+                            except Exception:
+                                pass
                         await asyncio.sleep(backoff)
                     else:
                         logger.error(f"Failed to index batch {i}-{i+len(batch)}: {str(e)}")
