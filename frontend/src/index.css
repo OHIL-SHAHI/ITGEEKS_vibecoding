@@ -11,6 +11,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -20,10 +24,16 @@ html, body, #root {
   color: #FCF2E5;
 }
 
+/* Cross-browser scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 164, 146, 0.4) transparent;
+}
+
 /* Slim modern scrollbars with palette colors */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -31,10 +41,10 @@ html, body, #root {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(168, 164, 146, 0.25);
+  background: rgba(168, 164, 146, 0.4);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 164, 146, 0.45);
+  background: #EC5B38;
 }

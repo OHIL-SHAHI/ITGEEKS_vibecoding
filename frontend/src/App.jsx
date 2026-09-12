@@ -357,7 +357,7 @@ export default function App() {
   );
 
   return (
-    <div className="flex h-screen w-screen flex-col bg-[#181414] text-[#FCF2E5] font-sans antialiased overflow-hidden select-none">
+    <div className="flex h-screen w-full flex-col bg-[#181414] text-[#FCF2E5] font-sans antialiased overflow-hidden">
       {/* Top Header */}
       <header className="flex h-14 items-center justify-between border-b border-[#524646]/70 bg-[#231d1d] px-6">
         <div className="flex items-center space-x-2.5">
@@ -423,13 +423,13 @@ export default function App() {
       </header>
 
       {/* Main Workspace Area */}
-      <div className="flex flex-1 overflow-hidden relative">
+      <div className="flex flex-1 min-h-0 overflow-hidden relative">
         {/* ===================== VIEW 1: CHAT & STUDY ASSISTANT ===================== */}
         {activeTab === 'chat' && (
-          <div className="flex flex-1 h-full overflow-hidden">
+          <div className="flex flex-1 min-h-0 h-full overflow-hidden">
             {/* Chat Stream Panel */}
-            <div className={`flex flex-col h-full transition-all duration-300 ${inspectorOpen ? 'w-1/2 border-r border-[#524646]/70' : 'w-full'}`}>
-              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className={`flex flex-col h-full min-h-0 transition-all duration-300 ${inspectorOpen ? 'w-1/2 border-r border-[#524646]/70' : 'w-full'}`}>
+              <div className="flex-1 min-h-0 overflow-y-auto p-6 space-y-6">
                 {messages.map((msg, idx) => (
                   <div
                     key={idx}
@@ -532,7 +532,7 @@ export default function App() {
 
             {/* Side-by-Side Page Inspector Panel */}
             {inspectorOpen && inspectingSource && (
-              <div className="w-1/2 h-full flex flex-col bg-[#1a1414] overflow-hidden">
+              <div className="w-1/2 h-full min-h-0 flex flex-col bg-[#1a1414] overflow-hidden">
                 {/* Inspector Header */}
                 <div className="flex items-center justify-between border-b border-[#524646]/70 bg-[#241d1d] px-4 py-3">
                   <div className="flex items-center space-x-2">
@@ -596,7 +596,7 @@ export default function App() {
                 </div>
 
                 {/* Rendered Document Page Scans */}
-                <div className="flex-1 overflow-auto p-4 flex items-start justify-center bg-[#130f0f]">
+                <div className="flex-1 min-h-0 overflow-auto p-4 flex items-start justify-center bg-[#130f0f]">
                   {inspectingSource.image_url ? (
                     <div
                       style={{
@@ -625,7 +625,7 @@ export default function App() {
 
         {/* ===================== VIEW 2: COURSE CORPUS MANAGER ===================== */}
         {activeTab === 'corpus' && (
-          <div className="flex-1 flex flex-col p-8 overflow-y-auto bg-[#181414]">
+          <div className="flex-1 min-h-0 flex flex-col p-8 overflow-y-auto bg-[#181414]">
             {/* Header & Stats Cards */}
             <div className="flex items-center justify-between mb-8">
               <div>
@@ -684,7 +684,7 @@ export default function App() {
             </div>
 
             {/* Documents Table */}
-            <div className="rounded-xl border border-[#524646]/80 bg-[#221b1b] overflow-hidden shadow-sm">
+            <div className="rounded-xl border border-[#524646]/80 bg-[#221b1b] overflow-x-auto shadow-sm">
               <table className="w-full text-left text-xs">
                 <thead className="border-b border-[#524646] bg-[#2a2222] font-mono text-[#A8A492]">
                   <tr>
@@ -763,7 +763,7 @@ export default function App() {
 
         {/* ===================== VIEW 3: BENCHMARK & EVALUATION ===================== */}
         {activeTab === 'benchmark' && (
-          <div className="flex-1 flex flex-col p-8 overflow-y-auto bg-[#181414]">
+          <div className="flex-1 min-h-0 flex flex-col p-8 overflow-y-auto bg-[#181414]">
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
@@ -889,7 +889,7 @@ export default function App() {
 
             {/* Benchmark Questions Table */}
             {benchmarkData ? (
-              <div className="rounded-xl border border-[#524646]/80 bg-[#221b1b] overflow-hidden shadow-sm">
+              <div className="rounded-xl border border-[#524646]/80 bg-[#221b1b] overflow-x-auto shadow-sm">
                 <table className="w-full text-left text-xs">
                   <thead className="border-b border-[#524646] bg-[#2a2222] font-mono text-[#A8A492]">
                     <tr>
