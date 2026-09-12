@@ -1,0 +1,35 @@
+# Environment and secrets
+.env
+.env*.local
+
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache and Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Node and Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# Backend temporary uploads and rendered pages
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/uploads/pages/*
+!backend/uploads/pages/.gitkeep
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

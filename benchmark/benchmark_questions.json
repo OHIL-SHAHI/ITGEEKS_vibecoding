@@ -1,0 +1,272 @@
+[
+  {
+    "id": "S01",
+    "type": "single",
+    "question": "What is the definition of Big-O notation f(n) = O(g(n)) as presented in the lecture slides?",
+    "expected_pages": [{ "filename": "lecture-slides.pdf", "page": 2 }],
+    "must_refuse": false,
+    "keywords": ["constants", "c", "n0", "upper bound"]
+  },
+  {
+    "id": "S02",
+    "type": "single",
+    "question": "What is the time complexity of binary search according to the lecture slides?",
+    "expected_pages": [{ "filename": "lecture-slides.pdf", "page": 5 }],
+    "must_refuse": false,
+    "keywords": ["O(log n)", "log"]
+  },
+  {
+    "id": "S03",
+    "type": "single",
+    "question": "What are the best-case and worst-case time complexities of insertion sort?",
+    "expected_pages": [{ "filename": "lecture-slides.pdf", "page": 9 }],
+    "must_refuse": false,
+    "keywords": ["Θ(n)", "Θ(n^2)", "n^2"]
+  },
+  {
+    "id": "S04",
+    "type": "single",
+    "question": "What recurrence describes merge sort's runtime in the lecture slides?",
+    "expected_pages": [{ "filename": "lecture-slides.pdf", "page": 10 }],
+    "must_refuse": false,
+    "keywords": ["2T(n/2)", "n log n"]
+  },
+  {
+    "id": "S05",
+    "type": "single",
+    "question": "Does Dijkstra's algorithm correctly handle negative edge weights?",
+    "expected_pages": [{ "filename": "lecture-slides.pdf", "page": 21 }],
+    "must_refuse": false,
+    "keywords": ["non-negative", "negative", "NOT"]
+  },
+  {
+    "id": "S06",
+    "type": "single",
+    "question": "What is the homework percentage in the CS101 grading breakdown?",
+    "expected_pages": [{ "filename": "syllabus-handbook.pdf", "page": 3 }],
+    "must_refuse": false,
+    "keywords": ["25%"]
+  },
+  {
+    "id": "S07",
+    "type": "single",
+    "question": "What exam materials are allowed according to the syllabus exam policies?",
+    "expected_pages": [{ "filename": "syllabus-handbook.pdf", "page": 4 }],
+    "must_refuse": false,
+    "keywords": ["cheat sheet", "A4", "closed-book"]
+  },
+  {
+    "id": "S08",
+    "type": "single",
+    "question": "When are the instructor office hours and in which room?",
+    "expected_pages": [{ "filename": "syllabus-handbook.pdf", "page": 9 }],
+    "must_refuse": false,
+    "keywords": ["Tue", "Thu", "204"]
+  },
+  {
+    "id": "S09",
+    "type": "single",
+    "question": "According to the study notes sorting tradeoffs table, is merge sort stable and what extra space does it need?",
+    "expected_pages": [{ "filename": "study-notes.md", "page": 2 }],
+    "must_refuse": false,
+    "keywords": ["stable", "n"]
+  },
+  {
+    "id": "S10",
+    "type": "single",
+    "question": "What is the 0/1 knapsack DP time complexity stated in the lecture slides?",
+    "expected_pages": [{ "filename": "lecture-slides.pdf", "page": 23 }],
+    "must_refuse": false,
+    "keywords": ["O(nW)", "nW"]
+  },
+  {
+    "id": "M01",
+    "type": "multi",
+    "question": "How does binary search complexity in the lecture slides relate to the sorted-input precondition emphasized in the study notes?",
+    "expected_pages": [
+      { "filename": "lecture-slides.pdf", "page": 5 },
+      { "filename": "study-notes.md", "page": 1 }
+    ],
+    "must_refuse": false,
+    "keywords": ["O(log n)", "sorted"]
+  },
+  {
+    "id": "M02",
+    "type": "multi",
+    "question": "Connect the merge sort recurrence from the lecture slides with the unrolled cn log n derivation in the study notes.",
+    "expected_pages": [
+      { "filename": "lecture-slides.pdf", "page": 10 },
+      { "filename": "study-notes.md", "page": 2 }
+    ],
+    "must_refuse": false,
+    "keywords": ["n log n", "2T(n/2)"]
+  },
+  {
+    "id": "M03",
+    "type": "multi",
+    "question": "Using the syllabus grading breakdown and the study notes midterm topic map, what percentage is the midterm and what topics does it focus on?",
+    "expected_pages": [
+      { "filename": "syllabus-handbook.pdf", "page": 3 },
+      { "filename": "study-notes.md", "page": 5 }
+    ],
+    "must_refuse": false,
+    "keywords": ["25%", "sorting", "BFS"]
+  },
+  {
+    "id": "M04",
+    "type": "multi",
+    "question": "What does the Dijkstra lecture slide say about negative weights, and what relaxation rule appears in the handwritten Dijkstra notes?",
+    "expected_pages": [
+      { "filename": "lecture-slides.pdf", "page": 21 },
+      { "filename": "handwritten-dijkstra-notes.png", "page": 1 }
+    ],
+    "must_refuse": false,
+    "keywords": ["non-negative", "relax", "dist"]
+  },
+  {
+    "id": "M05",
+    "type": "multi",
+    "question": "Relate the 0/1 knapsack lecture slide recurrence to the handwritten knapsack scan DP equations.",
+    "expected_pages": [
+      { "filename": "lecture-slides.pdf", "page": 23 },
+      { "filename": "handwritten-knapsack-scan.png", "page": 1 }
+    ],
+    "must_refuse": false,
+    "keywords": ["dp", "O(nW)"]
+  },
+  {
+    "id": "M06",
+    "type": "multi",
+    "question": "According to the syllabus weekly schedule and lecture hashing slides, which week covers hashing and what is load factor α?",
+    "expected_pages": [
+      { "filename": "syllabus-handbook.pdf", "page": 6 },
+      { "filename": "lecture-slides.pdf", "page": 15 }
+    ],
+    "must_refuse": false,
+    "keywords": ["Week 5", "load factor", "α"]
+  },
+  {
+    "id": "M07",
+    "type": "multi",
+    "question": "How do adjacency list space bounds in the lecture slides compare with the study notes advice for sparse graphs?",
+    "expected_pages": [
+      { "filename": "lecture-slides.pdf", "page": 18 },
+      { "filename": "study-notes.md", "page": 3 }
+    ],
+    "must_refuse": false,
+    "keywords": ["|V| + |E|", "sparse"]
+  },
+  {
+    "id": "M08",
+    "type": "multi",
+    "question": "Combine syllabus exam policies about the cheat sheet with the study notes tip referencing that policy.",
+    "expected_pages": [
+      { "filename": "syllabus-handbook.pdf", "page": 4 },
+      { "filename": "study-notes.md", "page": 3 }
+    ],
+    "must_refuse": false,
+    "keywords": ["A4", "handwritten", "cheat"]
+  },
+  {
+    "id": "M09",
+    "type": "multi",
+    "question": "What lab covers Dijkstra-related graph work per the syllabus, and what runtime does the BFS lecture claim with adjacency lists?",
+    "expected_pages": [
+      { "filename": "syllabus-handbook.pdf", "page": 10 },
+      { "filename": "lecture-slides.pdf", "page": 19 }
+    ],
+    "must_refuse": false,
+    "keywords": ["Lab 5", "|V| + |E|"]
+  },
+  {
+    "id": "M10",
+    "type": "multi",
+    "question": "Using lecture quicksort complexity and the study notes sorting table, what is quicksort's worst-case time and is it stable?",
+    "expected_pages": [
+      { "filename": "lecture-slides.pdf", "page": 13 },
+      { "filename": "study-notes.md", "page": 2 }
+    ],
+    "must_refuse": false,
+    "keywords": ["n^2", "stable", "no"]
+  },
+  {
+    "id": "U01",
+    "type": "unanswerable",
+    "question": "What is the campus Wi-Fi password for the CS building?",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U02",
+    "type": "unanswerable",
+    "question": "Explain the proof of the four color theorem in detail.",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U03",
+    "type": "unanswerable",
+    "question": "What is the average salary of a software engineer at Google in 2024?",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U04",
+    "type": "unanswerable",
+    "question": "How do you configure Kubernetes horizontal pod autoscaling for a CS101 homework grader?",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U05",
+    "type": "unanswerable",
+    "question": "What are the side effects of ibuprofen when studying for algorithms exams?",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U06",
+    "type": "unanswerable",
+    "question": "Describe A*'s heuristic admissibility conditions and implement Jump Point Search.",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U07",
+    "type": "unanswerable",
+    "question": "Who won the Turing Award in 2012 and what was their citation?",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U08",
+    "type": "unanswerable",
+    "question": "Give the full Rust ownership rules and how they differ from C++ move semantics.",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U09",
+    "type": "unanswerable",
+    "question": "What is the recipe for sourdough bread preferred by the CS101 instructor?",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  },
+  {
+    "id": "U10",
+    "type": "unanswerable",
+    "question": "Explain quantum annealing and how D-Wave maps Max-Cut instances.",
+    "expected_pages": [],
+    "must_refuse": true,
+    "keywords": []
+  }
+]
