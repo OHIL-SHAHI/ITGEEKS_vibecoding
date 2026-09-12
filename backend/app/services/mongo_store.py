@@ -116,9 +116,12 @@ class MongoStore:
         res = await db.evaluations.insert_one(eval_data)
         return str(res.inserted_id)
 
-    async def get_latest_evaluations(self, limit: int = 10) -> List[Dict[str, Any]]:
+    async def get_latest_evaluations(self, limit: int = 10, min_questions: int = 0) -> List[Dict[str, Any]]:
         db = self.get_db()
-        cursor = db.evaluations.find({}, {"_id": 0}).sort("timestamp", -1)
+        query = {}
+        if min_questions > 0:
+            query["total_questions"] = {"$gte": min_questions}
+        cursor = db.evaluations.find(query, {"_id": 0}).sort("timestamp", -1)
         return await cursor.to_list(length=limit)
 
 

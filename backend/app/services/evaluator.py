@@ -2,7 +2,7 @@ import json
 import time
 import asyncio
 import logging
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from pathlib import Path
 
 from backend.app.config import settings
@@ -16,6 +16,17 @@ logger = logging.getLogger(__name__)
 class BenchmarkEvaluator:
     def __init__(self):
         self.benchmark_file = settings.BENCHMARK_DIR / "benchmark_questions.json"
+        self._active_task: Optional[asyncio.Task] = None
+        self.state: Dict[str, Any] = {
+            "status": "idle",  # "idle" | "running" | "completed" | "failed"
+            "current": 0,
+            "total": 0,
+            "progress": 0,
+            "current_question": "",
+            "run_id": None,
+            "error": None,
+            "last_result": None
+        }
 
     def load_questions(self) -> List[Dict[str, Any]]:
         if not self.benchmark_file.exists():
@@ -23,12 +34,45 @@ class BenchmarkEvaluator:
         with open(self.benchmark_file, "r", encoding="utf-8") as f:
             return json.load(f)
 
+    def get_status(self) -> Dict[str, Any]:
+        return self.state
+
+    def start_evaluation_task(self, limit: int = None) -> Dict[str, Any]:
+        if self.state["status"] == "running" and self._active_task and not self._active_task.done():
+            logger.info("Evaluation task already in progress. Returning existing task state.")
+            return self.state
+
+        self.state["status"] = "running"
+        self.state["current"] = 0
+        self.state["progress"] = 0
+        self.state["error"] = None
+        self.state["current_question"] = "Initializing evaluation suite..."
+        self._active_task = asyncio.create_task(self._run_evaluation_background(limit=limit))
+        return self.state
+
+    async def _run_evaluation_background(self, limit: int = None) -> None:
+        try:
+            res = await self.run_evaluation(limit=limit)
+            self.state["status"] = "completed"
+            self.state["progress"] = 100
+            self.state["last_result"] = res.model_dump()
+        except Exception as e:
+            logger.error(f"Background benchmark run failed: {str(e)}")
+            self.state["status"] = "failed"
+            self.state["error"] = str(e)
+
     async def run_evaluation(self, limit: int = None) -> BenchmarkRunResponse:
         questions = self.load_questions()
         if limit:
             questions = questions[:limit]
 
+        total_q = len(questions)
+        self.state["total"] = total_q
+        self.state["current"] = 0
+        self.state["progress"] = 0
+
         run_id = f"run_{int(time.time())}"
+        self.state["run_id"] = run_id
         results: List[BenchmarkQuestionResult] = []
 
         target_total = 0
@@ -38,13 +82,19 @@ class BenchmarkEvaluator:
         refusal_total = 0
         refusal_passed = 0
 
-        for q in questions:
+        for i, q in enumerate(questions):
             qid = q.get("id", "UNK")
             qtype = q.get("type", "single")
             query = q.get("question", "")
             must_refuse = q.get("must_refuse", False)
             expected_pages = q.get("expected_pages", [])
             keywords = q.get("keywords", [])
+
+            self.state["current"] = i + 1
+            self.state["progress"] = int(((i + 1) / total_q) * 100)
+            self.state["current_question"] = query
+
+            logger.info(f"Evaluating benchmark [{i+1}/{total_q}]: {qid} - {query[:60]}...")
 
             # Execute query
             resp = await rag_service.answer_query(query, session_id=f"benchmark_{run_id}")
@@ -110,7 +160,7 @@ class BenchmarkEvaluator:
                 )
             )
             # Throttle between queries to respect API rate limits
-            await asyncio.sleep(2.0)
+            await asyncio.sleep(1.0)
 
         refusal_acc = (refusal_passed / refusal_total) if refusal_total > 0 else 1.0
         citation_acc = (target_citation_correct / target_total) if target_total > 0 else 0.0

@@ -60,6 +60,7 @@ export default function App() {
 
   // Benchmark State
   const [benchmarkLoading, setBenchmarkLoading] = useState(false);
+  const [benchmarkProgress, setBenchmarkProgress] = useState(null);
   const [benchmarkData, setBenchmarkData] = useState(null);
   const [benchmarkFilter, setBenchmarkFilter] = useState('all'); // 'all' | 'target' | 'refusal' | 'failed'
 
@@ -79,7 +80,22 @@ export default function App() {
   useEffect(() => {
     fetchHealth();
     fetchCorpus();
+    fetchLatestBenchmark();
   }, []);
+
+  const fetchLatestBenchmark = async () => {
+    try {
+      const res = await fetch('/api/benchmark/latest');
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.results) {
+          setBenchmarkData(data);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch latest benchmark', err);
+    }
+  };
 
   const fetchHealth = async () => {
     try {
@@ -273,17 +289,59 @@ export default function App() {
 
 
   const handleRunBenchmark = async () => {
+    if (benchmarkLoading) return;
     setBenchmarkLoading(true);
+    setBenchmarkProgress({
+      current: 0,
+      total: 30,
+      progress: 5,
+      current_question: 'Initializing evaluation suite...'
+    });
+
     try {
       const res = await fetch('/api/benchmark/run', { method: 'POST' });
-      if (res.ok) {
-        const data = await res.json();
-        setBenchmarkData(data);
+      if (!res.ok) {
+        throw new Error('Failed to start benchmark task');
       }
+
+      // Poll benchmark status every 1.5 seconds
+      const pollTimer = setInterval(async () => {
+        try {
+          const statusRes = await fetch('/api/benchmark/status');
+          if (statusRes.ok) {
+            const status = await statusRes.json();
+            setBenchmarkProgress({
+              current: status.current || 0,
+              total: status.total || 30,
+              progress: status.progress || 0,
+              current_question: status.current_question || 'Evaluating...'
+            });
+
+            if (status.status === 'completed') {
+              clearInterval(pollTimer);
+              setBenchmarkLoading(false);
+              setBenchmarkProgress(null);
+              if (status.last_result) {
+                setBenchmarkData(status.last_result);
+              } else {
+                fetchLatestBenchmark();
+              }
+            } else if (status.status === 'failed') {
+              clearInterval(pollTimer);
+              setBenchmarkLoading(false);
+              setBenchmarkProgress(null);
+              alert(`Benchmark failed: ${status.error || 'Unknown error'}`);
+            }
+          }
+        } catch (e) {
+          console.error('Benchmark polling error', e);
+        }
+      }, 1500);
     } catch (err) {
       console.error('Benchmark run error', err);
-    } finally {
       setBenchmarkLoading(false);
+      setBenchmarkProgress(null);
+      alert('Network error while starting benchmark');
     }
   };
 
@@ -345,7 +403,10 @@ export default function App() {
             <span>Course Corpus ({corpusStats.total_documents})</span>
           </button>
           <button
-            onClick={() => setActiveTab('benchmark')}
+            onClick={() => {
+              setActiveTab('benchmark');
+              fetchLatestBenchmark();
+            }}
             className={`flex items-center space-x-2 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
               activeTab === 'benchmark'
                 ? 'bg-[#EC5B38] text-[#FCF2E5] shadow-sm font-semibold'
@@ -724,6 +785,35 @@ export default function App() {
                 <span>{benchmarkLoading ? 'Running Evaluation Suite...' : 'Run Benchmark (30 Tests)'}</span>
               </button>
             </div>
+
+            {/* Live Progress Card when benchmark is running */}
+            {benchmarkLoading && benchmarkProgress && (
+              <div className="mb-8 rounded-xl border border-[#EC5B38]/60 bg-[#251e1e] p-5 shadow-lg shadow-[#EC5B38]/10 space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <div className="flex items-center space-x-2 text-[#FCF2E5]">
+                    <Loader2 className="h-4 w-4 animate-spin text-[#EC5B38]" />
+                    <span className="font-semibold tracking-wide">
+                      EVALUATING TEST {benchmarkProgress.current} OF {benchmarkProgress.total}
+                    </span>
+                  </div>
+                  <span className="text-[#EC5B38] font-bold text-sm">
+                    {benchmarkProgress.progress}%
+                  </span>
+                </div>
+
+                <div className="w-full bg-[#1b1515] rounded-full h-2.5 overflow-hidden border border-[#524646]/60">
+                  <div
+                    className="bg-[#EC5B38] h-2.5 rounded-full transition-all duration-300 ease-out"
+                    style={{ width: `${Math.max(4, benchmarkProgress.progress)}%` }}
+                  />
+                </div>
+
+                <div className="text-xs font-mono text-[#A8A492] flex items-center space-x-2 truncate">
+                  <span className="text-[#FCF2E5] font-medium shrink-0">Current Question:</span>
+                  <span className="truncate text-[#FCF2E5]/90 italic">"{benchmarkProgress.current_question}"</span>
+                </div>
+              </div>
+            )}
 
             {/* KPI Cards */}
             {benchmarkData && (
